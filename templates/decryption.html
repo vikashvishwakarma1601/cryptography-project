@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>Decryption</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css')}}">
+</head>
+<body>
+
+<div id="bg"></div>
+
+<nav>
+	<div class="nav-brand">
+		<div class="nav-head">Cryptography</div>
+		<div class="btn">
+			{% if data%}
+				<div class="nav-data"><a href="/decryption">Go back</a></div>
+			{% endif %}
+			{% if data == False %}
+				<div class="nav-data"><a href="/dashboard">Encryption</a></div>
+			{% endif %}
+			<div class="nav-data logout"><a href="/logout">Logout</a></div>
+		</div>
+	</div>
+</nav>
+{% if data == False %}
+	<section style="margin-top: 100px;">
+		<div class="form">
+			<form class="signin-box" method="POST" action="/decrypt-data" enctype="multipart/form-data">
+				
+				<h1>Upload File</h1>
+				<label for="file">Upload File<span>*</span></label><br>
+				<input type="file" id="file" name="file">
+				<div class="or-line"></div>
+				<label for="key">Key<span>*</span></label>
+				<input type="number" id="key" name="key" placeholder="Enter Key" required="true" maxlength="5">
+				<div class="or-line"></div>
+
+					
+				<label for="image">Image<span>*</span></label>
+				<input type="radio" id="image" name="fileType" checked="true" value="Image"><br><br>
+				<!-- <label for="Video">Video<span>*</span></label>
+				<input type="radio" id="Video" name="fileType" value="Video"><br><br> -->
+
+				<div class="or-line"></div>
+				<button class="signin">Click to Decrypt</button><br>
+				<div class="or-line"></div>
+			</form>
+		</div>
+
+		<div class="image">
+			<img src="{{ url_for('static',filename='img.png')}}">
+		</div>
+
+	</section>
+{% endif %}
+
+{% if data %}
+	
+	<section style="display: block;margin-top: 100px">
+		<div class="image">
+			<img src="{{ url_for('static',filename='userImage1.png')}}">
+		</div>
+		<div class="form data-body">
+			<h1>Decrypted Text</h1>
+			<p>{{ data }}</p>
+		</div>
+		
+	</section>
+
+{% endif %}
+
+</body>
+</html>

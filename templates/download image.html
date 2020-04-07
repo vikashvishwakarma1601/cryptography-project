@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>Download</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css')}}">
+</head>
+<body style="background: linear-gradient(to right, #fc5c7d, #6a82fb);">
+
+	<div id="bg"></div>
+
+<nav>
+	<div class="nav-brand">
+		<div class="nav-head">Cryptography</div>
+			<div class="btn">
+				<div class="nav-data"><a href="/dashboard">Dashboard</a></div>
+				<div class="nav-data logout"><a href="/logout">Logout</a></div>
+			</div>
+	</div>
+</nav>
+
+
+<section class="download">
+	
+	<div class="image">
+		<img src="{{ url_for('static',filename='userImage1.png')}}">
+	</div>
+
+	<div class="image-btn">
+		<a href="/download-image" target="_blank"><div>Click here to download</div></a>
+	</div>
+</section>
+	
+
+
+</body>
+</html>

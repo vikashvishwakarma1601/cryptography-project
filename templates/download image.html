@@ -4,17 +4,18 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<title>Download</title>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css')}}">
-</head>
-<body style="background: linear-gradient(to right, #fc5c7d, #6a82fb);">
+	<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-	<div id="bg"></div>
+</head>
+<body>
 
 <nav>
 	<div class="nav-brand">
-		<div class="nav-head">Cryptography</div>
+		<div class="nav-head"><img src="{{url_for('static',filename='img/logo.svg')}}" alt="logo"><i class="fa fa-plus"></i></div>
 			<div class="btn">
-				<div class="nav-data"><a href="/dashboard">Dashboard</a></div>
-				<div class="nav-data logout"><a href="/logout">Logout</a></div>
+				<a href="/dashboard"><div class="nav-data">Dashboard</div></a>
+				<a href="/logout"><div class="nav-data logout">Logout</div></a>
 			</div>
 	</div>
 </nav>
@@ -30,6 +31,7 @@
 		<a href="/download-image" target="_blank"><div>Click here to download</div></a>
 	</div>
 </section>
+<script src="{{url_for('static',filename='index.js')}}"></script>
 	
 
 

@@ -7,11 +7,10 @@ from cipher import cipher_text
 app = Flask(__name__)
 
 
-app.secret_key = 'super-secret-key'
+app.secret_key = 'wanna_change'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 app.config['static'] = './static'
-
 
 params = None
 
@@ -24,7 +23,7 @@ def authentication():
 	if('user' in session and session['user'] == params['user']):
 		return redirect('dashboard')
 
-	return render_template('login-page.html',change= False,status=-1)
+	return render_template('login-page.html',change= False,status=-1,keyValidation=False)
 
 
 @app.route('/login',methods = ['POST','GET'])
@@ -35,9 +34,9 @@ def login():
 	if request.method=="POST":
 		email = request.form.get('emailaddress')
 		password = request.form.get('pass')
-		session['user'] = email
-
-		return redirect('dashboard')
+		if(password == params['admin_pass']):
+			session['user'] = email
+			return redirect('dashboard')
 
 	return redirect('/')
 
@@ -47,19 +46,21 @@ def change_password():
 	if(request.method == 'POST'):
 		email = request.form.get('emailaddress')
 		if(email in params['user']):
-			new_pwd = request.form.get('pass')
-			with open("config.json",'r+') as file:
-				json_data = json.load(file)
-				json_data['params']['admin_pass'] = new_pwd
-				file.seek(0)
-				json.dump(json_data,file)
-				file.truncate()
-				file.close()
-			print("YES")
-			return render_template('login-page.html',status = 1,change= True)
-		print("NO")
-		return render_template('login-page.html',status = 0,change= True)
-	return render_template('login-page.html',change= True,status = -1)
+			secretKey = request.form.get('secretKey')
+			if(secretKey == params['secret_key']):
+				new_pwd = request.form.get('pass')
+				if(len(new_pwd)!=0):
+					with open("config.json",'r+') as file:
+						json_data = json.load(file)
+						json_data['params']['admin_pass'] = new_pwd
+						file.seek(0)
+						json.dump(json_data,file)
+						file.truncate()
+						file.close()
+					return render_template('login-page.html',status = 1,change= True,keyValidation=True)
+			return render_template('login-page.html',status = -1,change= True,keyValidation=False)
+		return render_template('login-page.html',change= True,status = 0,keyValidation=True)
+	return render_template('login-page.html',change= True,status = -1,keyValidation=True)
 
 
 
